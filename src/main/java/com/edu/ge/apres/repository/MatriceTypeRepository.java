@@ -1,7 +1,7 @@
 package com.edu.ge.apres.repository;
 
 import com.edu.ge.apres.domain.MatriceType;
-import com.edu.ge.domain.MatriceType;
+import com.edu.ge.apres.domain.MatriceType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

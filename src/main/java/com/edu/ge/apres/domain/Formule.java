@@ -1,6 +1,6 @@
 package com.edu.ge.apres.domain;
 
-import com.edu.ge.domain.enumeration.FormuleType;
+import com.edu.ge.apres.domain.enumeration.FormuleType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

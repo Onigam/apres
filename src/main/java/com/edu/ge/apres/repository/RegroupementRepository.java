@@ -1,6 +1,6 @@
 package com.edu.ge.apres.repository;
 
-import com.edu.ge.domain.Regroupement;
+import com.edu.ge.apres.domain.Regroupement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
