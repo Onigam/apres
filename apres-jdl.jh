@@ -1,0 +1,94 @@
+entity Formation {
+	code String required
+    nom String required
+}
+
+entity Regroupement {
+ 	nom String required
+}
+
+entity MatriceTypeFormation {
+	classeAlimentation Boolean required
+	ordre Integer required
+}
+
+entity MatriceType {
+	nom String required
+}
+
+enum FormuleType {
+    TENDANCE_AMORTIE, MOYENNE, TAUX_CONSTANT
+}
+
+entity Formule {
+	type FormuleType
+}
+
+entity FormuleVersion {
+    version Integer
+    valeur String
+}
+
+// Les données sont représentées en tableau de 3 dimensions 
+// Par année / Par Formation / Repartition sur l'année n+1
+// et stockées dans un blob
+entity Historique {
+	nom String required
+    anneeDebut Integer required
+    anneeFin Integer required
+    data Blob required
+}
+
+entity Etude {
+	nom String required
+    anneeDebut Integer required
+    anneeFin Integer required
+    nbAnneeProjection Integer required
+    effectifsClassesAlim Blob required
+    effectifsAutresOrigines Blob required
+    resultatEffectif Blob required
+}
+
+entity EtudeFormuleFormation {
+	anneeDebut Integer 
+}
+
+relationship OneToMany {
+	Regroupement{formation} to Formation{regroupement}
+}
+
+relationship ManyToOne {
+	MatriceTypeFormation{formation} to Formation
+}
+
+relationship OneToMany {
+	MatriceType{matriceTypeFormation} to MatriceTypeFormation{matriceType}
+}
+
+relationship ManyToOne {
+	FormuleVersion{formule} to Formule
+}
+
+relationship ManyToOne {
+	Historique{matriceType} to MatriceType
+}
+
+relationship OneToMany {
+	Historique{etude} to Etude{historique}
+}
+
+relationship ManyToOne {
+	Etude{formuleGlobale} to FormuleVersion
+}
+
+relationship ManyToOne {
+	EtudeFormuleFormation{formation} to MatriceTypeFormation
+}
+
+relationship ManyToOne {
+	EtudeFormuleFormation{formule} to FormuleVersion
+}
+
+relationship ManyToOne {
+	EtudeFormuleFormation{etude} to Etude  
+}
