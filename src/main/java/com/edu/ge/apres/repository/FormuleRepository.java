@@ -10,6 +10,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @SuppressWarnings("unused")
 //@RepositoryRestResource
-public interface FormuleRepository/* extends CrudRepository<Formule, Long>*/ {
+public interface FormuleRepository extends CrudRepository<Formule, Long> {
 
 }

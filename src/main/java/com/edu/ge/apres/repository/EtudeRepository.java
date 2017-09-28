@@ -9,6 +9,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @SuppressWarnings("unused")
 //@RepositoryRestResource
-public interface EtudeRepository /*extends CrudRepository<Etude, Long>*/ {
+public interface EtudeRepository extends CrudRepository<Etude, Long> {
 
 }

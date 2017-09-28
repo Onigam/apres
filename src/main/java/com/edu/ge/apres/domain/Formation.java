@@ -1,15 +1,12 @@
 package com.edu.ge.apres.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A Formation.
@@ -27,12 +24,12 @@ public class Formation implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "nom_court", nullable = false)
-    private String nomCourt;
+    @Column(name = "code", nullable = false)
+    private String code;
 
     @NotNull
-    @Column(name = "nom_long", nullable = false)
-    private String nomLong;
+    @Column(name = "nom", nullable = false)
+    private String nom;
 
     @ManyToOne
     private Regroupement regroupement;
@@ -46,30 +43,30 @@ public class Formation implements Serializable {
         this.id = id;
     }
 
-    public String getNomCourt() {
-        return nomCourt;
+    public String getCode() {
+        return code;
     }
 
-    public Formation nomCourt(String nomCourt) {
-        this.nomCourt = nomCourt;
+    public Formation code(String code) {
+        this.code = code;
         return this;
     }
 
-    public void setNomCourt(String nomCourt) {
-        this.nomCourt = nomCourt;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getNomLong() {
-        return nomLong;
+    public String getNom() {
+        return nom;
     }
 
-    public Formation nomLong(String nomLong) {
-        this.nomLong = nomLong;
+    public Formation nom(String nom) {
+        this.nom = nom;
         return this;
     }
 
-    public void setNomLong(String nomLong) {
-        this.nomLong = nomLong;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public Regroupement getRegroupement() {
@@ -110,8 +107,8 @@ public class Formation implements Serializable {
     public String toString() {
         return "Formation{" +
             "id=" + getId() +
-            ", nomCourt='" + getNomCourt() + "'" +
-            ", nomLong='" + getNomLong() + "'" +
+            ", code='" + getCode() + "'" +
+            ", nom='" + getNom() + "'" +
             "}";
     }
 }

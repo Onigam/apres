@@ -16,6 +16,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "matrice_type")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class MatriceType implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,6 +32,7 @@ public class MatriceType implements Serializable {
 
     @OneToMany(mappedBy = "matriceType")
     @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<MatriceTypeFormation> matriceTypeFormations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
@@ -79,6 +81,7 @@ public class MatriceType implements Serializable {
     public void setMatriceTypeFormations(Set<MatriceTypeFormation> matriceTypeFormations) {
         this.matriceTypeFormations = matriceTypeFormations;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {

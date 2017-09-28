@@ -1,21 +1,19 @@
 package com.edu.ge.apres.domain;
 
 import com.edu.ge.apres.domain.enumeration.FormuleType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A Formule.
  */
-//@Entity
+@Entity
 @Table(name = "formule")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Formule implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,10 +26,6 @@ public class Formule implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "jhi_type")
     private FormuleType type;
-
-    @OneToMany(mappedBy = "formule")
-    @JsonIgnore
-    private Set<FormuleVersion> formuleVersions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
@@ -53,31 +47,6 @@ public class Formule implements Serializable {
 
     public void setType(FormuleType type) {
         this.type = type;
-    }
-
-    public Set<FormuleVersion> getFormuleVersions() {
-        return formuleVersions;
-    }
-
-    public Formule formuleVersions(Set<FormuleVersion> formuleVersions) {
-        this.formuleVersions = formuleVersions;
-        return this;
-    }
-
-    public Formule addFormuleVersion(FormuleVersion formuleVersion) {
-        this.formuleVersions.add(formuleVersion);
-        formuleVersion.setFormule(this);
-        return this;
-    }
-
-    public Formule removeFormuleVersion(FormuleVersion formuleVersion) {
-        this.formuleVersions.remove(formuleVersion);
-        formuleVersion.setFormule(null);
-        return this;
-    }
-
-    public void setFormuleVersions(Set<FormuleVersion> formuleVersions) {
-        this.formuleVersions = formuleVersions;
     }
     // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 

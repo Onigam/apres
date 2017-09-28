@@ -16,6 +16,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "regroupement")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Regroupement implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,6 +32,7 @@ public class Regroupement implements Serializable {
 
     @OneToMany(mappedBy = "regroupement")
     @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Formation> formations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove

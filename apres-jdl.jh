@@ -29,7 +29,7 @@ entity FormuleVersion {
     valeur String
 }
 
-// Les données sont représentées en tableau de 3 dimensions 
+// Les données sont représentées en tableau de 3 dimensions
 // Par année / Par Formation / Repartition sur l'année n+1
 // et stockées dans un blob
 entity Historique {
@@ -50,7 +50,7 @@ entity Etude {
 }
 
 entity EtudeFormuleFormation {
-	anneeDebut Integer 
+	anneeDebut Integer
 }
 
 relationship OneToMany {
@@ -73,8 +73,8 @@ relationship ManyToOne {
 	Historique{matriceType} to MatriceType
 }
 
-relationship OneToMany {
-	Historique{etude} to Etude{historique}
+relationship ManyToOne {
+	Etude{historique} to Historique
 }
 
 relationship ManyToOne {
@@ -89,6 +89,6 @@ relationship ManyToOne {
 	EtudeFormuleFormation{formule} to FormuleVersion
 }
 
-relationship ManyToOne {
-	EtudeFormuleFormation{etude} to Etude  
+relationship OneToMany {
+	Etude{formuleFormation} to EtudeFormuleFormation{etude}
 }

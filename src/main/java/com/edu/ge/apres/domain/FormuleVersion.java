@@ -1,20 +1,18 @@
 package com.edu.ge.apres.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A FormuleVersion.
  */
-//@Entity
+@Entity
 @Table(name = "form_version")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class FormuleVersion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,13 +25,8 @@ public class FormuleVersion implements Serializable {
     @Column(name = "version")
     private Integer version;
 
-    @Column(name = "jhi_value")
-    private String value;
-
-    @OneToMany(mappedBy = "formule")
-    @JsonIgnore
-//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Etude> etudes = new HashSet<>();
+    @Column(name = "valeur")
+    private String valeur;
 
     @ManyToOne
     private Formule formule;
@@ -60,42 +53,17 @@ public class FormuleVersion implements Serializable {
         this.version = version;
     }
 
-    public String getValue() {
-        return value;
+    public String getValeur() {
+        return valeur;
     }
 
-    public FormuleVersion value(String value) {
-        this.value = value;
+    public FormuleVersion valeur(String valeur) {
+        this.valeur = valeur;
         return this;
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Set<Etude> getEtudes() {
-        return etudes;
-    }
-
-    public FormuleVersion etudes(Set<Etude> etudes) {
-        this.etudes = etudes;
-        return this;
-    }
-
-    public FormuleVersion addEtude(Etude etude) {
-        this.etudes.add(etude);
-        etude.setFormule(this);
-        return this;
-    }
-
-    public FormuleVersion removeEtude(Etude etude) {
-        this.etudes.remove(etude);
-        etude.setFormule(null);
-        return this;
-    }
-
-    public void setEtudes(Set<Etude> etudes) {
-        this.etudes = etudes;
+    public void setValeur(String valeur) {
+        this.valeur = valeur;
     }
 
     public Formule getFormule() {
@@ -137,7 +105,7 @@ public class FormuleVersion implements Serializable {
         return "FormuleVersion{" +
             "id=" + getId() +
             ", version='" + getVersion() + "'" +
-            ", value='" + getValue() + "'" +
+            ", valeur='" + getValeur() + "'" +
             "}";
     }
 }

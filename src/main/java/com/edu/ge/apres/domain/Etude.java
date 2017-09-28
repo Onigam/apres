@@ -1,18 +1,22 @@
 package com.edu.ge.apres.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Etude.
  */
-//@Entity
+@Entity
 @Table(name = "etude")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Etude implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,22 +66,16 @@ public class Etude implements Serializable {
     @Column(name = "resultat_effectif_content_type", nullable = false)
     private String resultatEffectifContentType;
 
-    @NotNull
-    @Lob
-    @Column(name = "resultat_taux", nullable = false)
-    private byte[] resultatTaux;
-
-    @Column(name = "resultat_taux_content_type", nullable = false)
-    private String resultatTauxContentType;
+    @OneToMany(mappedBy = "etude")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<EtudeFormuleFormation> formuleFormations = new HashSet<>();
 
     @ManyToOne
     private Historique historique;
 
     @ManyToOne
-    private MatriceType matriceType;
-
-    @ManyToOne
-    private FormuleVersion formule;
+    private FormuleVersion formuleGlobale;
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
@@ -218,30 +216,29 @@ public class Etude implements Serializable {
         this.resultatEffectifContentType = resultatEffectifContentType;
     }
 
-    public byte[] getResultatTaux() {
-        return resultatTaux;
+    public Set<EtudeFormuleFormation> getFormuleFormations() {
+        return formuleFormations;
     }
 
-    public Etude resultatTaux(byte[] resultatTaux) {
-        this.resultatTaux = resultatTaux;
+    public Etude formuleFormations(Set<EtudeFormuleFormation> etudeFormuleFormations) {
+        this.formuleFormations = etudeFormuleFormations;
         return this;
     }
 
-    public void setResultatTaux(byte[] resultatTaux) {
-        this.resultatTaux = resultatTaux;
-    }
-
-    public String getResultatTauxContentType() {
-        return resultatTauxContentType;
-    }
-
-    public Etude resultatTauxContentType(String resultatTauxContentType) {
-        this.resultatTauxContentType = resultatTauxContentType;
+    public Etude addFormuleFormation(EtudeFormuleFormation etudeFormuleFormation) {
+        this.formuleFormations.add(etudeFormuleFormation);
+        etudeFormuleFormation.setEtude(this);
         return this;
     }
 
-    public void setResultatTauxContentType(String resultatTauxContentType) {
-        this.resultatTauxContentType = resultatTauxContentType;
+    public Etude removeFormuleFormation(EtudeFormuleFormation etudeFormuleFormation) {
+        this.formuleFormations.remove(etudeFormuleFormation);
+        etudeFormuleFormation.setEtude(null);
+        return this;
+    }
+
+    public void setFormuleFormations(Set<EtudeFormuleFormation> etudeFormuleFormations) {
+        this.formuleFormations = etudeFormuleFormations;
     }
 
     public Historique getHistorique() {
@@ -257,30 +254,17 @@ public class Etude implements Serializable {
         this.historique = historique;
     }
 
-    public MatriceType getMatriceType() {
-        return matriceType;
+    public FormuleVersion getFormuleGlobale() {
+        return formuleGlobale;
     }
 
-    public Etude matriceType(MatriceType matriceType) {
-        this.matriceType = matriceType;
+    public Etude formuleGlobale(FormuleVersion formuleVersion) {
+        this.formuleGlobale = formuleVersion;
         return this;
     }
 
-    public void setMatriceType(MatriceType matriceType) {
-        this.matriceType = matriceType;
-    }
-
-    public FormuleVersion getFormule() {
-        return formule;
-    }
-
-    public Etude formule(FormuleVersion formuleVersion) {
-        this.formule = formuleVersion;
-        return this;
-    }
-
-    public void setFormule(FormuleVersion formuleVersion) {
-        this.formule = formuleVersion;
+    public void setFormuleGlobale(FormuleVersion formuleVersion) {
+        this.formuleGlobale = formuleVersion;
     }
     // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
@@ -318,8 +302,6 @@ public class Etude implements Serializable {
             ", effectifsAutresOriginesContentType='" + effectifsAutresOriginesContentType + "'" +
             ", resultatEffectif='" + getResultatEffectif() + "'" +
             ", resultatEffectifContentType='" + resultatEffectifContentType + "'" +
-            ", resultatTaux='" + getResultatTaux() + "'" +
-            ", resultatTauxContentType='" + resultatTauxContentType + "'" +
             "}";
     }
 }

@@ -13,6 +13,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "mat_type_form")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class MatriceTypeFormation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,8 +28,8 @@ public class MatriceTypeFormation implements Serializable {
     private Boolean classeAlimentation;
 
     @NotNull
-    @Column(name = "jhi_order", nullable = false)
-    private Integer order;
+    @Column(name = "ordre", nullable = false)
+    private Integer ordre;
 
     @ManyToOne
     private Formation formation;
@@ -58,17 +59,17 @@ public class MatriceTypeFormation implements Serializable {
         this.classeAlimentation = classeAlimentation;
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getOrdre() {
+        return ordre;
     }
 
-    public MatriceTypeFormation order(Integer order) {
-        this.order = order;
+    public MatriceTypeFormation ordre(Integer ordre) {
+        this.ordre = ordre;
         return this;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setOrdre(Integer ordre) {
+        this.ordre = ordre;
     }
 
     public Formation getFormation() {
@@ -123,7 +124,7 @@ public class MatriceTypeFormation implements Serializable {
         return "MatriceTypeFormation{" +
             "id=" + getId() +
             ", classeAlimentation='" + isClasseAlimentation() + "'" +
-            ", order='" + getOrder() + "'" +
+            ", ordre='" + getOrdre() + "'" +
             "}";
     }
 }

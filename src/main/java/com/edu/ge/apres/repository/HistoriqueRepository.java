@@ -10,6 +10,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @SuppressWarnings("unused")
 //@RepositoryRestResource
-public interface HistoriqueRepository /*extends CrudRepository<Historique, Long>*/ {
+public interface HistoriqueRepository extends CrudRepository<Historique, Long> {
 
 }

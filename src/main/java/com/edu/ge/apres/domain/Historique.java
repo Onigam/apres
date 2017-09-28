@@ -1,21 +1,19 @@
 package com.edu.ge.apres.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A Historique.
  */
-//@Entity
+@Entity
 @Table(name = "historique")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Historique implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,11 +42,6 @@ public class Historique implements Serializable {
 
     @Column(name = "data_content_type", nullable = false)
     private String dataContentType;
-
-    @OneToMany(mappedBy = "historique")
-    @JsonIgnore
-//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Etude> etudes = new HashSet<>();
 
     @ManyToOne
     private MatriceType matriceType;
@@ -125,31 +118,6 @@ public class Historique implements Serializable {
 
     public void setDataContentType(String dataContentType) {
         this.dataContentType = dataContentType;
-    }
-
-    public Set<Etude> getEtudes() {
-        return etudes;
-    }
-
-    public Historique etudes(Set<Etude> etudes) {
-        this.etudes = etudes;
-        return this;
-    }
-
-    public Historique addEtude(Etude etude) {
-        this.etudes.add(etude);
-        etude.setHistorique(this);
-        return this;
-    }
-
-    public Historique removeEtude(Etude etude) {
-        this.etudes.remove(etude);
-        etude.setHistorique(null);
-        return this;
-    }
-
-    public void setEtudes(Set<Etude> etudes) {
-        this.etudes = etudes;
     }
 
     public MatriceType getMatriceType() {
