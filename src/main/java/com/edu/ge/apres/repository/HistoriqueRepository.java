@@ -1,16 +1,15 @@
 package com.edu.ge.apres.repository;
 
 import com.edu.ge.apres.domain.Historique;
-import com.edu.ge.apres.domain.Historique;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
 /**
  * Spring Data JPA repository for the Historique entity.
  */
 @SuppressWarnings("unused")
-@Repository
-public interface HistoriqueRepository extends JpaRepository<Historique, Long> {
+//@RepositoryRestResource
+public interface HistoriqueRepository /*extends CrudRepository<Historique, Long>*/ {
 
 }

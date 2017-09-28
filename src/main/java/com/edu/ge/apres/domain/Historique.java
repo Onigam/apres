@@ -14,9 +14,8 @@ import java.util.Set;
 /**
  * A Historique.
  */
-@Entity
+//@Entity
 @Table(name = "historique")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Historique implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,7 +47,7 @@ public class Historique implements Serializable {
 
     @OneToMany(mappedBy = "historique")
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Etude> etudes = new HashSet<>();
 
     @ManyToOne

@@ -13,7 +13,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "mat_type_form")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class MatriceTypeFormation implements Serializable {
 
     private static final long serialVersionUID = 1L;

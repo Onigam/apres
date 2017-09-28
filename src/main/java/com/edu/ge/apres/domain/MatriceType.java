@@ -16,7 +16,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "matrice_type")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class MatriceType implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,18 +31,7 @@ public class MatriceType implements Serializable {
 
     @OneToMany(mappedBy = "matriceType")
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<MatriceTypeFormation> matriceTypeFormations = new HashSet<>();
-
-    @OneToMany(mappedBy = "matriceType")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Historique> historiques = new HashSet<>();
-
-    @OneToMany(mappedBy = "matriceType")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Etude> etudes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
@@ -91,57 +79,6 @@ public class MatriceType implements Serializable {
     public void setMatriceTypeFormations(Set<MatriceTypeFormation> matriceTypeFormations) {
         this.matriceTypeFormations = matriceTypeFormations;
     }
-
-    public Set<Historique> getHistoriques() {
-        return historiques;
-    }
-
-    public MatriceType historiques(Set<Historique> historiques) {
-        this.historiques = historiques;
-        return this;
-    }
-
-    public MatriceType addHistorique(Historique historique) {
-        this.historiques.add(historique);
-        historique.setMatriceType(this);
-        return this;
-    }
-
-    public MatriceType removeHistorique(Historique historique) {
-        this.historiques.remove(historique);
-        historique.setMatriceType(null);
-        return this;
-    }
-
-    public void setHistoriques(Set<Historique> historiques) {
-        this.historiques = historiques;
-    }
-
-    public Set<Etude> getEtudes() {
-        return etudes;
-    }
-
-    public MatriceType etudes(Set<Etude> etudes) {
-        this.etudes = etudes;
-        return this;
-    }
-
-    public MatriceType addEtude(Etude etude) {
-        this.etudes.add(etude);
-        etude.setMatriceType(this);
-        return this;
-    }
-
-    public MatriceType removeEtude(Etude etude) {
-        this.etudes.remove(etude);
-        etude.setMatriceType(null);
-        return this;
-    }
-
-    public void setEtudes(Set<Etude> etudes) {
-        this.etudes = etudes;
-    }
-    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {

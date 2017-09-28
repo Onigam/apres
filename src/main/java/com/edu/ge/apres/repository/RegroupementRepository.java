@@ -1,15 +1,14 @@
 package com.edu.ge.apres.repository;
 
 import com.edu.ge.apres.domain.Regroupement;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
 /**
  * Spring Data JPA repository for the Regroupement entity.
  */
 @SuppressWarnings("unused")
-@Repository
-public interface RegroupementRepository extends JpaRepository<Regroupement, Long> {
-
+@RepositoryRestResource
+public interface RegroupementRepository extends CrudRepository<Regroupement, Long> {
 }

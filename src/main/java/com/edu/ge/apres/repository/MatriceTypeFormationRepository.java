@@ -1,16 +1,15 @@
 package com.edu.ge.apres.repository;
 
 import com.edu.ge.apres.domain.MatriceTypeFormation;
-import com.edu.ge.apres.domain.MatriceTypeFormation;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
 /**
  * Spring Data JPA repository for the MatriceTypeFormation entity.
  */
 @SuppressWarnings("unused")
-@Repository
-public interface MatriceTypeFormationRepository extends JpaRepository<MatriceTypeFormation, Long> {
+@RepositoryRestResource
+public interface MatriceTypeFormationRepository extends CrudRepository<MatriceTypeFormation, Long> {
 
 }

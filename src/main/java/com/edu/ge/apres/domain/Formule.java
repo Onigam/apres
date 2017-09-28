@@ -14,9 +14,8 @@ import java.util.Set;
 /**
  * A Formule.
  */
-@Entity
+//@Entity
 @Table(name = "formule")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Formule implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +31,6 @@ public class Formule implements Serializable {
 
     @OneToMany(mappedBy = "formule")
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<FormuleVersion> formuleVersions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove

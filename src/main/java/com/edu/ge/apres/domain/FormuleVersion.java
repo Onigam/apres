@@ -13,9 +13,8 @@ import java.util.Set;
 /**
  * A FormuleVersion.
  */
-@Entity
+//@Entity
 @Table(name = "form_version")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class FormuleVersion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,7 +32,7 @@ public class FormuleVersion implements Serializable {
 
     @OneToMany(mappedBy = "formule")
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Etude> etudes = new HashSet<>();
 
     @ManyToOne

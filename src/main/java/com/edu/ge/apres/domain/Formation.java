@@ -34,11 +34,6 @@ public class Formation implements Serializable {
     @Column(name = "nom_long", nullable = false)
     private String nomLong;
 
-    @OneToMany(mappedBy = "formation")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<MatriceTypeFormation> matriceTypeFormations = new HashSet<>();
-
     @ManyToOne
     private Regroupement regroupement;
 
@@ -75,31 +70,6 @@ public class Formation implements Serializable {
 
     public void setNomLong(String nomLong) {
         this.nomLong = nomLong;
-    }
-
-    public Set<MatriceTypeFormation> getMatriceTypeFormations() {
-        return matriceTypeFormations;
-    }
-
-    public Formation matriceTypeFormations(Set<MatriceTypeFormation> matriceTypeFormations) {
-        this.matriceTypeFormations = matriceTypeFormations;
-        return this;
-    }
-
-    public Formation addMatriceTypeFormation(MatriceTypeFormation matriceTypeFormation) {
-        this.matriceTypeFormations.add(matriceTypeFormation);
-        matriceTypeFormation.setFormation(this);
-        return this;
-    }
-
-    public Formation removeMatriceTypeFormation(MatriceTypeFormation matriceTypeFormation) {
-        this.matriceTypeFormations.remove(matriceTypeFormation);
-        matriceTypeFormation.setFormation(null);
-        return this;
-    }
-
-    public void setMatriceTypeFormations(Set<MatriceTypeFormation> matriceTypeFormations) {
-        this.matriceTypeFormations = matriceTypeFormations;
     }
 
     public Regroupement getRegroupement() {
