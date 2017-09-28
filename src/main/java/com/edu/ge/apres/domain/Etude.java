@@ -60,11 +60,11 @@ public class Etude implements Serializable {
 
     @NotNull
     @Lob
-    @Column(name = "resultat_effectif", nullable = false)
-    private byte[] resultatEffectif;
+    @Column(name = "resultat", nullable = false)
+    private byte[] resultat;
 
-    @Column(name = "resultat_effectif_content_type", nullable = false)
-    private String resultatEffectifContentType;
+    @Column(name = "resultat_content_type", nullable = false)
+    private String resultatContentType;
 
     @OneToMany(mappedBy = "etude")
     @JsonIgnore
@@ -190,30 +190,30 @@ public class Etude implements Serializable {
         this.effectifsAutresOriginesContentType = effectifsAutresOriginesContentType;
     }
 
-    public byte[] getResultatEffectif() {
-        return resultatEffectif;
+    public byte[] getResultat() {
+        return resultat;
     }
 
-    public Etude resultatEffectif(byte[] resultatEffectif) {
-        this.resultatEffectif = resultatEffectif;
+    public Etude resultat(byte[] resultat) {
+        this.resultat = resultat;
         return this;
     }
 
-    public void setResultatEffectif(byte[] resultatEffectif) {
-        this.resultatEffectif = resultatEffectif;
+    public void setResultat(byte[] resultat) {
+        this.resultat = resultat;
     }
 
-    public String getResultatEffectifContentType() {
-        return resultatEffectifContentType;
+    public String getResultatContentType() {
+        return resultatContentType;
     }
 
-    public Etude resultatEffectifContentType(String resultatEffectifContentType) {
-        this.resultatEffectifContentType = resultatEffectifContentType;
+    public Etude resultatContentType(String resultatContentType) {
+        this.resultatContentType = resultatContentType;
         return this;
     }
 
-    public void setResultatEffectifContentType(String resultatEffectifContentType) {
-        this.resultatEffectifContentType = resultatEffectifContentType;
+    public void setResultatContentType(String resultatContentType) {
+        this.resultatContentType = resultatContentType;
     }
 
     public Set<EtudeFormuleFormation> getFormuleFormations() {
@@ -300,8 +300,8 @@ public class Etude implements Serializable {
             ", effectifsClassesAlimContentType='" + effectifsClassesAlimContentType + "'" +
             ", effectifsAutresOrigines='" + getEffectifsAutresOrigines() + "'" +
             ", effectifsAutresOriginesContentType='" + effectifsAutresOriginesContentType + "'" +
-            ", resultatEffectif='" + getResultatEffectif() + "'" +
-            ", resultatEffectifContentType='" + resultatEffectifContentType + "'" +
+            ", resultat='" + getResultat() + "'" +
+            ", resultatContentType='" + resultatContentType + "'" +
             "}";
     }
 }
