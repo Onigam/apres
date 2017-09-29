@@ -46,6 +46,15 @@ public class Historique implements Serializable {
     @ManyToOne
     private MatriceType matriceType;
 
+    public Historique(String nom, Integer anneeDebut, Integer anneeFin, byte[] data, String dataContentType, MatriceType matriceType) {
+        this.nom = nom;
+        this.anneeDebut = anneeDebut;
+        this.anneeFin = anneeFin;
+        this.data = data;
+        this.dataContentType = dataContentType;
+        this.matriceType = matriceType;
+    }
+
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;

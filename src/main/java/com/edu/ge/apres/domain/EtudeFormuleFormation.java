@@ -34,6 +34,13 @@ public class EtudeFormuleFormation implements Serializable {
     @ManyToOne
     private Etude etude;
 
+    public EtudeFormuleFormation(Integer anneeDebut, MatriceTypeFormation formation, FormuleVersion formule, Etude etude) {
+        this.anneeDebut = anneeDebut;
+        this.formation = formation;
+        this.formule = formule;
+        this.etude = etude;
+    }
+
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;

@@ -31,6 +31,12 @@ public class FormuleVersion implements Serializable {
     @ManyToOne
     private Formule formule;
 
+    public FormuleVersion(Integer version, String valeur, Formule formule) {
+        this.version = version;
+        this.valeur = valeur;
+        this.formule = formule;
+    }
+
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;

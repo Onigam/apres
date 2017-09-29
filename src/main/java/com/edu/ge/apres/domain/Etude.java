@@ -77,6 +77,22 @@ public class Etude implements Serializable {
     @ManyToOne
     private FormuleVersion formuleGlobale;
 
+    public Etude(String nom, Integer anneeDebut, Integer anneeFin, Integer nbAnneeProjection, byte[] effectifsClassesAlim, String effectifsClassesAlimContentType, byte[] effectifsAutresOrigines, String effectifsAutresOriginesContentType, byte[] resultat, String resultatContentType, Set<EtudeFormuleFormation> formuleFormations, Historique historique, FormuleVersion formuleGlobale) {
+        this.nom = nom;
+        this.anneeDebut = anneeDebut;
+        this.anneeFin = anneeFin;
+        this.nbAnneeProjection = nbAnneeProjection;
+        this.effectifsClassesAlim = effectifsClassesAlim;
+        this.effectifsClassesAlimContentType = effectifsClassesAlimContentType;
+        this.effectifsAutresOrigines = effectifsAutresOrigines;
+        this.effectifsAutresOriginesContentType = effectifsAutresOriginesContentType;
+        this.resultat = resultat;
+        this.resultatContentType = resultatContentType;
+        this.formuleFormations = formuleFormations;
+        this.historique = historique;
+        this.formuleGlobale = formuleGlobale;
+    }
+
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;

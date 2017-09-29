@@ -27,6 +27,10 @@ public class Formule implements Serializable {
     @Column(name = "jhi_type")
     private FormuleType type;
 
+    public Formule(FormuleType type) {
+        this.type = type;
+    }
+
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;

@@ -13,7 +13,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "formation")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Formation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,6 +32,16 @@ public class Formation implements Serializable {
 
     @ManyToOne
     private Regroupement regroupement;
+
+    /*Hibernate constructor*/
+    protected Formation() {
+    }
+
+    public Formation(String code, String nom, Regroupement regroupement) {
+        this.code = code;
+        this.nom = nom;
+        this.regroupement = regroupement;
+    }
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {

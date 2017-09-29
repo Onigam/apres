@@ -35,6 +35,11 @@ public class MatriceType implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<MatriceTypeFormation> matriceTypeFormations = new HashSet<>();
 
+    public MatriceType(String nom, Set<MatriceTypeFormation> matriceTypeFormations) {
+        this.nom = nom;
+        this.matriceTypeFormations = matriceTypeFormations;
+    }
+
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;

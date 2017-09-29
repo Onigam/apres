@@ -37,6 +37,13 @@ public class MatriceTypeFormation implements Serializable {
     @ManyToOne
     private MatriceType matriceType;
 
+    public MatriceTypeFormation(Boolean classeAlimentation, Integer ordre, Formation formation, MatriceType matriceType) {
+        this.classeAlimentation = classeAlimentation;
+        this.ordre = ordre;
+        this.formation = formation;
+        this.matriceType = matriceType;
+    }
+
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
