@@ -12,7 +12,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "et_formu_forma")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class EtudeFormuleFormation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,19 +28,22 @@ public class EtudeFormuleFormation implements Serializable {
     private MatriceTypeFormation formation;
 
     @ManyToOne
-    private FormuleVersion formule;
+    private Formule formule;
 
     @ManyToOne
     private Etude etude;
 
-    public EtudeFormuleFormation(Integer anneeDebut, MatriceTypeFormation formation, FormuleVersion formule, Etude etude) {
+    protected EtudeFormuleFormation() {
+    }
+
+    public EtudeFormuleFormation(Integer anneeDebut, MatriceTypeFormation formation, Formule formule, Etude etude) {
         this.anneeDebut = anneeDebut;
         this.formation = formation;
         this.formule = formule;
         this.etude = etude;
     }
 
-    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -76,17 +78,17 @@ public class EtudeFormuleFormation implements Serializable {
         this.formation = matriceTypeFormation;
     }
 
-    public FormuleVersion getFormule() {
+    public Formule getFormule() {
         return formule;
     }
 
-    public EtudeFormuleFormation formule(FormuleVersion formuleVersion) {
-        this.formule = formuleVersion;
+    public EtudeFormuleFormation formule(Formule formule) {
+        this.formule = formule;
         return this;
     }
 
-    public void setFormule(FormuleVersion formuleVersion) {
-        this.formule = formuleVersion;
+    public void setFormule(Formule formule) {
+        this.formule = formule;
     }
 
     public Etude getEtude() {
@@ -101,7 +103,7 @@ public class EtudeFormuleFormation implements Serializable {
     public void setEtude(Etude etude) {
         this.etude = etude;
     }
-    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {

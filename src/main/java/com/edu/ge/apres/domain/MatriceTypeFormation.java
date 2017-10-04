@@ -13,7 +13,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "mat_type_form")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class MatriceTypeFormation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,14 +36,16 @@ public class MatriceTypeFormation implements Serializable {
     @ManyToOne
     private MatriceType matriceType;
 
-    public MatriceTypeFormation(Boolean classeAlimentation, Integer ordre, Formation formation, MatriceType matriceType) {
+    protected MatriceTypeFormation() {
+    }
+
+    public MatriceTypeFormation(Boolean classeAlimentation, Integer ordre, Formation formation) {
         this.classeAlimentation = classeAlimentation;
         this.ordre = ordre;
         this.formation = formation;
-        this.matriceType = matriceType;
     }
 
-    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -104,7 +105,7 @@ public class MatriceTypeFormation implements Serializable {
     public void setMatriceType(MatriceType matriceType) {
         this.matriceType = matriceType;
     }
-    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {

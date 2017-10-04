@@ -13,7 +13,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "historique")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Historique implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,6 +45,9 @@ public class Historique implements Serializable {
     @ManyToOne
     private MatriceType matriceType;
 
+    protected Historique() {
+    }
+
     public Historique(String nom, Integer anneeDebut, Integer anneeFin, byte[] data, String dataContentType, MatriceType matriceType) {
         this.nom = nom;
         this.anneeDebut = anneeDebut;
@@ -55,7 +57,7 @@ public class Historique implements Serializable {
         this.matriceType = matriceType;
     }
 
-    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -141,7 +143,7 @@ public class Historique implements Serializable {
     public void setMatriceType(MatriceType matriceType) {
         this.matriceType = matriceType;
     }
-    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {

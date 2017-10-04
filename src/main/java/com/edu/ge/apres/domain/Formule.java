@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,7 +14,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "formule")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Formule implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,11 +27,23 @@ public class Formule implements Serializable {
     @Column(name = "jhi_type")
     private FormuleType type;
 
-    public Formule(FormuleType type) {
-        this.type = type;
+    @NotNull
+    @Column(name = "nom", nullable = false)
+    private String nom;
+
+    @Column(name = "valeur")
+    private String valeur;
+
+    protected Formule() {
     }
 
-    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
+    public Formule(FormuleType type, String nom, String valeur) {
+        this.type = type;
+        this.nom = nom;
+        this.valeur = valeur;
+    }
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -52,7 +64,33 @@ public class Formule implements Serializable {
     public void setType(FormuleType type) {
         this.type = type;
     }
-    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
+
+    public String getNom() {
+        return nom;
+    }
+
+    public Formule nom(String nom) {
+        this.nom = nom;
+        return this;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getValeur() {
+        return valeur;
+    }
+
+    public Formule valeur(String valeur) {
+        this.valeur = valeur;
+        return this;
+    }
+
+    public void setValeur(String valeur) {
+        this.valeur = valeur;
+    }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -79,6 +117,8 @@ public class Formule implements Serializable {
         return "Formule{" +
             "id=" + getId() +
             ", type='" + getType() + "'" +
+            ", nom='" + getNom() + "'" +
+            ", valeur='" + getValeur() + "'" +
             "}";
     }
 }

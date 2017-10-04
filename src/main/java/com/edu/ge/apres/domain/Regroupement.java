@@ -33,14 +33,13 @@ public class Regroupement implements Serializable {
     @JsonIgnore
     private Set<Formation> formations = new HashSet<>();
 
-    protected Regroupement() {
-    }
+    protected Regroupement(){}
 
     public Regroupement(String nom) {
         this.nom = nom;
     }
 
-    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -86,7 +85,7 @@ public class Regroupement implements Serializable {
     public void setFormations(Set<Formation> formations) {
         this.formations = formations;
     }
-    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {

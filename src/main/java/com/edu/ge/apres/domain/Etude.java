@@ -16,7 +16,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "etude")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Etude implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,14 +51,6 @@ public class Etude implements Serializable {
 
     @NotNull
     @Lob
-    @Column(name = "effectifs_autres_origines", nullable = false)
-    private byte[] effectifsAutresOrigines;
-
-    @Column(name = "effectifs_autres_origines_content_type", nullable = false)
-    private String effectifsAutresOriginesContentType;
-
-    @NotNull
-    @Lob
     @Column(name = "resultat", nullable = false)
     private byte[] resultat;
 
@@ -75,25 +66,12 @@ public class Etude implements Serializable {
     private Historique historique;
 
     @ManyToOne
-    private FormuleVersion formuleGlobale;
+    private Formule formuleGlobale;
 
-    public Etude(String nom, Integer anneeDebut, Integer anneeFin, Integer nbAnneeProjection, byte[] effectifsClassesAlim, String effectifsClassesAlimContentType, byte[] effectifsAutresOrigines, String effectifsAutresOriginesContentType, byte[] resultat, String resultatContentType, Set<EtudeFormuleFormation> formuleFormations, Historique historique, FormuleVersion formuleGlobale) {
-        this.nom = nom;
-        this.anneeDebut = anneeDebut;
-        this.anneeFin = anneeFin;
-        this.nbAnneeProjection = nbAnneeProjection;
-        this.effectifsClassesAlim = effectifsClassesAlim;
-        this.effectifsClassesAlimContentType = effectifsClassesAlimContentType;
-        this.effectifsAutresOrigines = effectifsAutresOrigines;
-        this.effectifsAutresOriginesContentType = effectifsAutresOriginesContentType;
-        this.resultat = resultat;
-        this.resultatContentType = resultatContentType;
-        this.formuleFormations = formuleFormations;
-        this.historique = historique;
-        this.formuleGlobale = formuleGlobale;
+    protected Etude() {
     }
 
-    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -180,32 +158,6 @@ public class Etude implements Serializable {
         this.effectifsClassesAlimContentType = effectifsClassesAlimContentType;
     }
 
-    public byte[] getEffectifsAutresOrigines() {
-        return effectifsAutresOrigines;
-    }
-
-    public Etude effectifsAutresOrigines(byte[] effectifsAutresOrigines) {
-        this.effectifsAutresOrigines = effectifsAutresOrigines;
-        return this;
-    }
-
-    public void setEffectifsAutresOrigines(byte[] effectifsAutresOrigines) {
-        this.effectifsAutresOrigines = effectifsAutresOrigines;
-    }
-
-    public String getEffectifsAutresOriginesContentType() {
-        return effectifsAutresOriginesContentType;
-    }
-
-    public Etude effectifsAutresOriginesContentType(String effectifsAutresOriginesContentType) {
-        this.effectifsAutresOriginesContentType = effectifsAutresOriginesContentType;
-        return this;
-    }
-
-    public void setEffectifsAutresOriginesContentType(String effectifsAutresOriginesContentType) {
-        this.effectifsAutresOriginesContentType = effectifsAutresOriginesContentType;
-    }
-
     public byte[] getResultat() {
         return resultat;
     }
@@ -270,19 +222,19 @@ public class Etude implements Serializable {
         this.historique = historique;
     }
 
-    public FormuleVersion getFormuleGlobale() {
+    public Formule getFormuleGlobale() {
         return formuleGlobale;
     }
 
-    public Etude formuleGlobale(FormuleVersion formuleVersion) {
-        this.formuleGlobale = formuleVersion;
+    public Etude formuleGlobale(Formule formule) {
+        this.formuleGlobale = formule;
         return this;
     }
 
-    public void setFormuleGlobale(FormuleVersion formuleVersion) {
-        this.formuleGlobale = formuleVersion;
+    public void setFormuleGlobale(Formule formule) {
+        this.formuleGlobale = formule;
     }
-    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -314,8 +266,6 @@ public class Etude implements Serializable {
             ", nbAnneeProjection='" + getNbAnneeProjection() + "'" +
             ", effectifsClassesAlim='" + getEffectifsClassesAlim() + "'" +
             ", effectifsClassesAlimContentType='" + effectifsClassesAlimContentType + "'" +
-            ", effectifsAutresOrigines='" + getEffectifsAutresOrigines() + "'" +
-            ", effectifsAutresOriginesContentType='" + effectifsAutresOriginesContentType + "'" +
             ", resultat='" + getResultat() + "'" +
             ", resultatContentType='" + resultatContentType + "'" +
             "}";
