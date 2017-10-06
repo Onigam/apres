@@ -18,43 +18,74 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = ApresApplication.class)
 public class HistoriqueBuilderTest {
 
-
     @Autowired
-    HistoriqueBuilder historiqueBuilder;
+    private HistoriqueBuilder historiqueBuilder;
 
-    private MatriceType getMatriceType() {
-        final Regroupement regroupement = new Regroupement("ES 2");
-        for (int i = 0; i < 29; i++) {
-            final Formation form = new Formation("FORM_" + i, "Formation " + i, regroupement);
-            regroupement.addFormation(form);
-        }
+    private Historique historique;
+    private MatriceType matriceType;
 
-        final Set<MatriceTypeFormation> matriceTypeFormations = new HashSet<>();
-        final Formation[] formations = regroupement.getFormations().stream().toArray(Formation[]::new);
-        for (int i = 0; i < 3; i++) {
-            matriceTypeFormations.add(new MatriceTypeFormation(true, i, formations[i]));
-        }
+    @Test
+    public void testXLSImport() throws HistoriqueException {
 
-        for (int i = 3; i < 29; i++) {
-            matriceTypeFormations.add(new MatriceTypeFormation(false, i, formations[i]));
-        }
-
-        return new MatriceType("Matrice de test", matriceTypeFormations);
+        final InputStream is = this.getClass().getResourceAsStream("/historiques/historique-2013-2016.xlsx");
+        historique = historiqueBuilder.importDataToHistorique(is, getHistorique());
+        final byte[] data = historique.getData();
+        assertThat(data == null).isTrue();
     }
 
     @Test
-    public void testXLSImport() {
+    public void testXLSUnconsistentRowImport() throws HistoriqueException {
+        final InputStream is = this.getClass().getResourceAsStream("/historiques/historique-unconsistent-row-2013-2016.xlsx");
 
         try {
-            final InputStream is = this.getClass().getResourceAsStream("/historiques/historique-2013-2016.xlsx");
-            final MatriceType matriceType = getMatriceType();
-            Historique historique = new Historique("Histo ES 2", 2013, 2016,
-                    "application/json; charset=utf-8", matriceType);
-            historique = historiqueBuilder.importDataToHistorique(is, historique);
-            final byte[] data = historique.getData();
-            assertThat(data == null).isTrue();
-        } catch (final Exception e) {
-            e.printStackTrace();
+            historiqueBuilder.importDataToHistorique(is, getHistorique());
+        } catch (final HistoriqueException e) {
+            assertThat(e.getMessage().equals("Erreur de cohérence des totaux dans l'onglet 0 sur la ligne 3")).isTrue();
         }
+    }
+
+    @Test
+    public void testXLSUnconsistentColumnImport() throws HistoriqueException {
+        final InputStream is = this.getClass().getResourceAsStream("/historiques/historique-unconsistent-column-2013-2016.xlsx");
+
+        try {
+            historiqueBuilder.importDataToHistorique(is, getHistorique());
+        } catch (final HistoriqueException e) {
+            assertThat(e.getMessage().equals("Erreur de cohérence des totaux dans l'onglet 0 sur la colonne 4")).isTrue();
+        }
+    }
+
+    private MatriceType getMatriceType() {
+
+        if (matriceType == null) {
+            final Regroupement regroupement = new Regroupement("ES 2");
+            for (int i = 0; i < 29; i++) {
+                final Formation form = new Formation("FORM_" + i, "Formation " + i, regroupement);
+                regroupement.addFormation(form);
+            }
+
+            final Set<MatriceTypeFormation> matriceTypeFormations = new HashSet<>();
+            final Formation[] formations = regroupement.getFormations().stream().toArray(Formation[]::new);
+            for (int i = 0; i < 3; i++) {
+                matriceTypeFormations.add(new MatriceTypeFormation(true, i, formations[i]));
+            }
+
+            for (int i = 3; i < 29; i++) {
+                matriceTypeFormations.add(new MatriceTypeFormation(false, i, formations[i]));
+            }
+
+            matriceType = new MatriceType("Matrice de test", matriceTypeFormations);
+        }
+
+        return matriceType;
+    }
+
+    private Historique getHistorique() {
+        if (historique == null) {
+            historique = new Historique("Histo ES 2", 2013, 2016,
+                    "application/json; charset=utf-8", getMatriceType());
+        }
+
+        return historique;
     }
 }

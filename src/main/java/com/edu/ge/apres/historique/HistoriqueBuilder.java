@@ -17,10 +17,14 @@ import java.util.Set;
 @Service
 public class HistoriqueBuilder {
 
-    public Historique importDataToHistorique(final InputStream is, final Historique historique) throws IOException, HistoriqueException {
+    public Historique importDataToHistorique(final InputStream is, final Historique historique) throws HistoriqueException {
 
-        final int[][][] data = parseSheets(is, historique);
-        //historique.setData(intArrayToBlob(data));
+        try {
+            final int[][][] data = parseSheets(is, historique);
+        } catch (final IOException e) {
+            throw new HistoriqueException("Impossible de lire les données", 0);
+        }
+
         return historique;
     }
 
@@ -88,7 +92,7 @@ public class HistoriqueBuilder {
             }
 
             if (effectifCount != currentRow[currentRow.length - 1]) {
-                throw new HistoriqueException("Erreur de cohérence des totaux dans l'onglet " + sheetNumber + " sur la ligne " + (i + 2), sheetNumber);
+                throw new HistoriqueException("Erreur de cohérence des totaux dans l'onglet " + sheetNumber + " sur la ligne " + (i + 1), sheetNumber);
             }
         }
     }
