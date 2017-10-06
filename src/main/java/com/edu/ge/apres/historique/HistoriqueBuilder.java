@@ -45,17 +45,17 @@ public class HistoriqueBuilder {
 
         final Set<MatriceTypeFormation> formations = matriceType.getMatriceTypeFormations();
         final int nbRows = formations.size() + 2;
-        final int nbColumns = (int) formations.stream().filter(formation -> !formation.isClasseAlimentation()).count() + 1;
+        final int nbColumns = (int) formations.stream().filter(formation -> !formation.isClasseAlimentation()).count() + 2;
 
         // On stoque par formation ( 1ere colonne du excel ) avec pour chaque element la repartition sur l'année n+1 sur une autre formation
         final int[][] sheetAsArray = new int[nbRows][nbColumns];
 
         try {
             // Pour chaque année tester si la valeur de la dernière ligne est égale a la somme des éléments jusqu'a i - 1
-            for (int y = 1; y < nbRows + 1; y++) {
+            for (int y = 1; y <= nbRows; y++) {
                 final XSSFRow row = sheet.getRow(y);
 
-                for (int x = 1; x < nbColumns; x++) {
+                for (int x = 1; x <= nbColumns; x++) {
                     sheetAsArray[y - 1][x - 1] = getCellIntValue(row.getCell(x));
                 }
             }
@@ -79,7 +79,7 @@ public class HistoriqueBuilder {
      */
     private void checkRowsConsistency(final int[][] sheetAsArray, final int sheetNumber) throws HistoriqueException {
 
-        for (int i = 0; i < sheetAsArray.length; i++) {
+        for (int i = 0; i < sheetAsArray.length - 2; i++) {
             final int[] currentRow = sheetAsArray[i];
             int effectifCount = 0;
 
@@ -88,7 +88,7 @@ public class HistoriqueBuilder {
             }
 
             if (effectifCount != currentRow[currentRow.length - 1]) {
-                throw new HistoriqueException("Erreur de cohérence des totaux dans l'onglet " + sheetNumber + " sur la ligne " + i + 1, sheetNumber);
+                throw new HistoriqueException("Erreur de cohérence des totaux dans l'onglet " + sheetNumber + " sur la ligne " + (i + 2), sheetNumber);
             }
         }
     }
@@ -110,7 +110,7 @@ public class HistoriqueBuilder {
             }
 
             if (effectifCount != sheetAsArray[sheetAsArray.length - 1][i]) {
-                throw new HistoriqueException("Erreur de cohérence des totaux dans l'onglet " + sheetNumber + " sur la colonne " + i + 1, sheetNumber);
+                throw new HistoriqueException("Erreur de cohérence des totaux dans l'onglet " + sheetNumber + " sur la colonne " + (i + 1), sheetNumber);
             }
         }
     }
